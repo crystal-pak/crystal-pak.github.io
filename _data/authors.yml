@@ -6,12 +6,17 @@
 #   url: {homepage_of_author}
 # -------------------------------------
 
-cotes:
-  name: Cotes Chung
-  twitter: cotes2020
-  url: https://github.com/cotes2020/
+김이박:
+  name: 김이박
 
-sille_bille:
-  name: Dinesh Prasanth Moluguwan Krishnamoorthy
-  twitter: dinesh_MKD
-  url: https://github.com/SilleBille/
+수정:
+  name: 수정
+
+시연:
+  name: 시연
+
+주희:
+  name: 주희
+
+후정:
+  name: 후정

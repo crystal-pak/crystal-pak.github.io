@@ -4,5 +4,12 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+
+## **북적북적** : 책과 함께하는 신나는 수다 모임 📚✨
+<br>
+안녕! 북적북적에 온 걸 환영해! 🎉
+<br><br>
+여기는 독서를 사랑하는 친구들이 모이는 공간이야.  
+독서에 대한 자유로운 이야기를 나누고, 즐거운 시간을 가져보자!
+<br><br>
+책과 함께하는 재미, 북적북적에서 느껴봐! 😊
