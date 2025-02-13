@@ -699,11 +699,15 @@ $btn-mb: 0.5rem;
     display: none; /* Chrome, Safari */
   }
 
-  /* 내부 요소 전체 가운데 정렬 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  /* 프로필, 타이틀, 타이틀 설명만 가운데 정렬 */
+  .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 1.5rem 0;
+  }
 
   #avatar {
     display: block;
@@ -715,15 +719,6 @@ $btn-mb: 0.5rem;
     margin: 1rem auto; /* 가운데 정렬 */
   }
 
-  .profile-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    padding: 1rem 0;
-  }
-
   .site-title {
     font-weight: 900;
     font-size: 1.75rem;
@@ -731,6 +726,7 @@ $btn-mb: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     color: var(--site-title-color);
+    text-align: center; /* 제목 가운데 정렬 */
   }
 
   .site-subtitle {
@@ -739,28 +735,24 @@ $btn-mb: 0.5rem;
     margin-top: 0.25rem;
     word-spacing: 1px;
     user-select: none;
+    text-align: center; /* 설명 가운데 정렬 */
   }
 
-  /* 네비게이션 메뉴 가운데 정렬 */
+  /* 메뉴 부분은 원래 정렬 유지 */
   .sidebar-nav {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 0;
 
     li.nav-item {
       width: 100%;
-      text-align: center;
 
       a.nav-link {
         display: flex;
-        justify-content: center; /* 가운데 정렬 */
         align-items: center;
         border-radius: 0.75rem;
         font-weight: 600;
         width: 100%;
-        padding: 0.6rem 0;
+        padding: 0.6rem 1.5rem; /* 좌우 여백 유지 */
 
         &:hover {
           background-color: var(--sidebar-hover-bg);
@@ -768,7 +760,7 @@ $btn-mb: 0.5rem;
 
         i {
           font-size: 95%;
-          margin-right: 0.5rem;
+          margin-right: 1rem; /* 아이콘과 텍스트 간격 유지 */
         }
 
         span {
@@ -787,29 +779,11 @@ $btn-mb: 0.5rem;
     }
   }
 
-  /* 사이드바 하단 버튼 정렬 */
+  /* 사이드바 하단 버튼 그대로 유지 */
   .sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding-left: 2rem;
+    padding-right: 1rem;
     margin-bottom: 1.5rem;
-    padding: 0 1rem;
-
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background-color: var(--sidebar-btn-bg);
-      color: var(--sidebar-btn-color);
-      margin: 0.5rem;
-
-      &:hover {
-        background-color: var(--sidebar-hover-bg);
-      }
-    }
   }
 }
 
