@@ -680,8 +680,6 @@ $btn-border-width: 3px;
 $btn-mb: 0.5rem;
 
 #sidebar {
-  @include pl-pr(0);
-
   position: fixed;
   top: 0;
   left: 0;
@@ -691,6 +689,7 @@ $btn-mb: 0.5rem;
   z-index: 99;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border-color);
+  padding: 0;
 
   /* Hide scrollbar */
   -ms-overflow-style: none; /* IE, Edge */
@@ -699,7 +698,7 @@ $btn-mb: 0.5rem;
     display: none; /* Chrome, Safari */
   }
 
-  /* 프로필(아바타), 타이틀, 설명만 가운데 정렬 */
+  /* ✅ 프로필(아바타), 타이틀, 설명만 가운데 정렬 */
   .profile-wrapper {
     display: flex;
     flex-direction: column;
@@ -726,7 +725,7 @@ $btn-mb: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     color: var(--site-title-color);
-    text-align: center; /* 제목 가운데 정렬 */
+    text-align: center; /* 제목 중앙 정렬 */
   }
 
   .site-subtitle {
@@ -735,10 +734,10 @@ $btn-mb: 0.5rem;
     margin-top: 0.25rem;
     word-spacing: 1px;
     user-select: none;
-    text-align: center; /* 설명 가운데 정렬 */
+    text-align: center; /* 설명 중앙 정렬 */
   }
 
-  /* ✅ 메뉴는 원래 스타일 그대로 유지 */
+  /* ✅ 메뉴 부분 원래 상태 유지 */
   ul {
     margin-bottom: 2rem;
 
@@ -754,9 +753,12 @@ $btn-mb: 0.5rem;
         align-items: center;
         border-radius: 0.75rem;
         font-weight: 600;
+        color: var(--sidebar-link-color); /* 메뉴 글자 원래 색상 유지 */
+        text-decoration: none;
 
         &:hover {
           background-color: var(--sidebar-hover-bg);
+          color: var(--sidebar-active-color);
         }
 
         i {
