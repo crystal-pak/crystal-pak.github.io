@@ -684,7 +684,7 @@ $btn-mb: 0.5rem;
 
   position: fixed;
   top: 0;
-  left: 50%;
+  left: 0;
   height: 100%;
   overflow-y: auto;
   width: $sidebar-width;
@@ -692,24 +692,18 @@ $btn-mb: 0.5rem;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border-color);
 
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  /* Hide scrollbar */
+  -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none; /* Firefox */
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
-    display: none;
+    display: none; /* Chrome, Safari */
   }
 
-  %sidebar-link-hover {
-    &:hover {
-      color: var(--sidebar-active-color);
-    }
-  }
-
-  a {
-    @extend %sidebar-links;
-  }
+  /* 내부 콘텐츠 가운데 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
 
   #avatar {
     display: block;
@@ -717,7 +711,8 @@ $btn-mb: 0.5rem;
     height: 7rem;
     overflow: hidden;
     box-shadow: var(--avatar-border-color) 0 0 0 2px;
-    transform: translateZ(0); /* fixed the zoom in Safari */
+    transform: translateZ(0);
+    margin: 1rem auto; /* 상하 마진 추가 */
 
     img {
       transition: transform 0.5s;
@@ -731,16 +726,16 @@ $btn-mb: 0.5rem;
   .profile-wrapper {
     @include mt-mb(2.5rem);
     @extend %clickable-transition;
-
-    padding-left: 2.5rem;
-    padding-right: 1.25rem;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 요소 중앙 정렬 */
+    text-align: center;
   }
 
   .site-title {
     @extend %clickable-transition;
     @extend %sidebar-link-hover;
-
     font-family: inherit;
     font-weight: 900;
     font-size: 1.75rem;
@@ -757,28 +752,31 @@ $btn-mb: 0.5rem;
     color: var(--site-subtitle-color);
     margin-top: 0.25rem;
     word-spacing: 1px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
   }
 
+  /* 네비게이션 메뉴 가운데 정렬 */
   ul {
     margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
+    padding: 0;
 
     li.nav-item {
       opacity: 0.9;
       width: 100%;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      text-align: center;
 
       a.nav-link {
         @include pt-pb(0.6rem);
-
         display: flex;
+        justify-content: center; /* 가로 가운데 정렬 */
         align-items: center;
         border-radius: 0.75rem;
         font-weight: 600;
+        width: 100%;
 
         &:hover {
           background-color: var(--sidebar-hover-bg);
@@ -787,7 +785,7 @@ $btn-mb: 0.5rem;
         i {
           font-size: 95%;
           opacity: 0.8;
-          margin-right: 1.5rem;
+          margin-right: 0.5rem; /* 아이콘 간격 조정 */
         }
 
         span {
@@ -796,14 +794,11 @@ $btn-mb: 0.5rem;
         }
       }
 
-      &.active {
-        .nav-link {
-          color: var(--sidebar-active-color);
-          background-color: var(--sidebar-hover-bg);
-
-          span {
-            opacity: 1;
-          }
+      &.active .nav-link {
+        color: var(--sidebar-active-color);
+        background-color: var(--sidebar-hover-bg);
+        span {
+          opacity: 1;
         }
       }
 
@@ -813,17 +808,20 @@ $btn-mb: 0.5rem;
     }
   }
 
+  /* 사이드바 하단 버튼 정렬 */
   .sidebar-bottom {
-    padding-left: 2rem;
-    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 버튼도 가운데 정렬 */
     margin-bottom: 1.5rem;
+    padding: 0 1rem;
 
     $btn-size: 1.75rem;
 
     %button {
       width: $btn-size;
       height: $btn-size;
-      margin-bottom: $btn-mb; // multi line gap
+      margin-bottom: 0.5rem; /* 버튼 간격 */
       border-radius: 50%;
       color: var(--sidebar-btn-color);
       background-color: var(--sidebar-btn-bg);
@@ -845,10 +843,6 @@ $btn-mb: 0.5rem;
       @extend %button;
       @extend %sidebar-link-hover;
       @extend %clickable-transition;
-
-      &:not(:last-child) {
-        margin-right: $sb-btn-gap;
-      }
     }
 
     i {
@@ -860,20 +854,8 @@ $btn-mb: 0.5rem;
       @extend %sidebar-links;
       @extend %sidebar-link-hover;
     }
-
-    .icon-border {
-      @extend %no-cursor;
-      @include ml-mr(calc(($sb-btn-gap - $btn-border-width) / 2));
-
-      background-color: var(--sidebar-btn-color);
-      content: '';
-      width: $btn-border-width;
-      height: $btn-border-width;
-      border-radius: 50%;
-      margin-bottom: $btn-mb;
-    }
-  } /* .sidebar-bottom */
-} /* #sidebar */
+  }
+}
 
 @media (hover: hover) {
   #sidebar ul > li:last-child::after {
