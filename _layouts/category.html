@@ -14,20 +14,32 @@ layout: page
   {% assign posts = page.posts %}
   {% assign years = posts | map: 'year' | uniq | sort | reverse %}
 
-  {% for year in years %}
-    {% if year != '' and year != null %}
-      <h2 class="mt-4">{{ year }}년</h2>
-      <ul class="content ps-0">
-        {% for post in posts %}
-          {% if post.year == year and post.categories contains page.title %}
-            <li class="d-flex justify-content-between px-md-3">
-              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-              <span class="dash flex-grow-1"></span>
-              {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endfor %}
+  {% if page.title == '독서 기록' or page.title == '모임 일정' %}
+    {% for year in years %}
+      {% if year != '' and year != null %}
+        <h2 class="mt-4">{{ year }}년</h2>
+        <ul class="content ps-0">
+          {% for post in posts %}
+            {% if post.year == year %}
+              <li class="d-flex justify-content-between px-md-3">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <span class="dash flex-grow-1"></span>
+                {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <ul class="content ps-0">
+      {% for post in page.posts %}
+        <li class="d-flex justify-content-between px-md-3">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <span class="dash flex-grow-1"></span>
+          {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>
