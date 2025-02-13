@@ -699,11 +699,11 @@ $btn-mb: 0.5rem;
     display: none; /* Chrome, Safari */
   }
 
-  /* 프로필, 타이틀, 타이틀 설명만 가운데 정렬 */
+  /* 프로필(아바타), 타이틀, 설명만 가운데 정렬 */
   .profile-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* 중앙 정렬 */
     text-align: center;
     width: 100%;
     padding: 1.5rem 0;
@@ -738,21 +738,22 @@ $btn-mb: 0.5rem;
     text-align: center; /* 설명 가운데 정렬 */
   }
 
-  /* 메뉴 부분은 원래 정렬 유지 */
-  .sidebar-nav {
-    width: 100%;
-    padding: 0;
+  /* ✅ 메뉴는 원래 스타일 그대로 유지 */
+  ul {
+    margin-bottom: 2rem;
 
     li.nav-item {
+      opacity: 0.9;
       width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
 
       a.nav-link {
+        padding: 0.6rem 1.5rem;
         display: flex;
         align-items: center;
         border-radius: 0.75rem;
         font-weight: 600;
-        width: 100%;
-        padding: 0.6rem 1.5rem; /* 좌우 여백 유지 */
 
         &:hover {
           background-color: var(--sidebar-hover-bg);
@@ -760,11 +761,13 @@ $btn-mb: 0.5rem;
 
         i {
           font-size: 95%;
-          margin-right: 1rem; /* 아이콘과 텍스트 간격 유지 */
+          opacity: 0.8;
+          margin-right: 1.5rem;
         }
 
         span {
           font-size: 90%;
+          letter-spacing: 0.2px;
         }
       }
 
@@ -779,7 +782,7 @@ $btn-mb: 0.5rem;
     }
   }
 
-  /* 사이드바 하단 버튼 그대로 유지 */
+  /* ✅ 사이드바 하단 버튼 기존 상태 유지 */
   .sidebar-bottom {
     padding-left: 2rem;
     padding-right: 1rem;
