@@ -59,8 +59,8 @@ order: 4
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,  // 크기 자동 유지 설정을 비활성화
-        aspectRatio: 2,  // 차트의 비율을 2:1로 설정
+        maintainAspectRatio: false, // 크기 자동 유지 설정 비활성화
+        aspectRatio: 2, // 차트 비율을 2:1로 설정
         scales: {
           y: { beginAtZero: true }
         }
