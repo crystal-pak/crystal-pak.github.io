@@ -696,7 +696,7 @@ $btn-mb: 0.5rem;
     width: 7rem;
     height: 7rem;
     overflow: hidden;
-    box-shadow: var(--avatar-border-color) 0 0 0 2px;
+    box-shadow: 0 0 0 2px var(--avatar-border-color);
     transform: translateZ(0);
     margin: 1rem auto; /* 아바타를 완전히 가운데 정렬 */
   }
@@ -721,59 +721,57 @@ $btn-mb: 0.5rem;
   }
 }
 
-  /* ✅ 메뉴 부분 원래 상태 유지 */
-  ul {
-    margin-bottom: 2rem;
+/* 메뉴 스타일 유지 */
+ul {
+  margin-bottom: 2rem;
 
-    li.nav-item {
-      opacity: 0.9;
-      width: 100%;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+  li.nav-item {
+    opacity: 0.9;
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 
-      a.nav-link {
-        padding: 0.6rem 1.5rem;
-        display: flex;
-        align-items: center;
-        border-radius: 0.75rem;
-        font-weight: 600;
-        color: var(--sidebar-link-color); /* 메뉴 글자 원래 색상 유지 */
-        text-decoration: none;
+    a.nav-link {
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      color: var(--sidebar-link-color); /* 메뉴 글자 원래 색상 유지 */
+      text-decoration: none;
 
-        &:hover {
-          background-color: var(--sidebar-hover-bg);
-          color: var(--sidebar-active-color);
-        }
-
-        i {
-          font-size: 95%;
-          opacity: 0.8;
-          margin-right: 1.5rem;
-        }
-
-        span {
-          font-size: 90%;
-          letter-spacing: 0.2px;
-        }
-      }
-
-      &.active .nav-link {
-        color: var(--sidebar-active-color);
+      &:hover {
         background-color: var(--sidebar-hover-bg);
+        color: var(--sidebar-active-color);
       }
 
-      &:not(:first-child) {
-        margin-top: 0.25rem;
+      i {
+        font-size: 95%;
+        opacity: 0.8;
+        margin-right: 1.5rem;
+      }
+
+      span {
+        font-size: 90%;
+        letter-spacing: 0.2px;
       }
     }
-  }
 
-  /* ✅ 사이드바 하단 버튼 기존 상태 유지 */
-  .sidebar-bottom {
-    padding-left: 2rem;
-    padding-right: 1rem;
-    margin-bottom: 1.5rem;
+    &.active .nav-link {
+      color: var(--sidebar-active-color);
+      background-color: var(--sidebar-hover-bg);
+    }
+
+    &:not(:first-child) {
+      margin-top: 0.25rem;
+    }
   }
+}
+
+/* 사이드바 하단 버튼 스타일 유지 */
+.sidebar-bottom {
+  padding-left: 2rem;
+  padding-right: 1rem;
 }
 
 @media (hover: hover) {
