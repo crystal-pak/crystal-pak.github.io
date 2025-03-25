@@ -7,6 +7,15 @@ order: 4
 
 ## 📊 장르별 독서 통계
 
+{% assign genres = site.posts | map: "genre" | uniq %}
+
+<ul>
+  {% for genre in genres %}
+    {% assign genre_count = site.posts | where: "genre", genre | size %}
+    <li>{{ genre }}: {{ genre_count }}권</li>
+  {% endfor %}
+</ul>
+
 <canvas id="genreChart"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
