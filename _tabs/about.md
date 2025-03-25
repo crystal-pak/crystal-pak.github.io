@@ -6,55 +6,64 @@ order: 4
 
 ## 📊 장르별 독서 통계
 
-{% assign genres = site.posts | map: "genre" | uniq | reject: "" %}
+{% assign posts_with_genre = site.posts | where_exp: "post", "post.genre != ''" %}
+{% assign genres = posts_with_genre | map: "genre" | uniq %}
 
 <ul>
-  {% assign genre_data = "" %}
   {% for genre in genres %}
-    {% assign genre_count = site.posts | where: "genre", genre | size %}
+    {% assign genre_count = posts_with_genre | where: "genre", genre | size %}
     <li>{{ genre }}: {{ genre_count }}권</li>
-    {% assign genre_data = genre_data | append: genre_count | append: "," %}
   {% endfor %}
 </ul>
 
-<!-- Chart.js 차트 삽입 -->
-{% include charts.html %}
+## 📊 시각화된 통계
 
-<div>
-  <canvas id="genreChart" width="400" height="400"></canvas>
-</div>
+<canvas id="genreChart" width="400" height="400"></canvas>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  var ctx = document.getElementById('genreChart').getContext('2d');
+  document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('genreChart').getContext('2d');
 
-  // 마크다운에서 전달된 장르별 독서 수 데이터
-  var genreCounts = "{{ genre_data | strip_newlines }}".split(",");
-  
-  // 장르별 데이터가 없을 경우 차트 초기화
-  if (genreCounts.length > 0 && genreCounts[0] !== "") {
-    var genreChart = new Chart(ctx, {
-      type: 'pie', // 파이차트
+    // 장르와 수량 데이터
+    const labels = [
+      {% for genre in genres %}
+        "{{ genre }}"{% unless forloop.last %}, {% endunless %}
+      {% endfor %}
+    ];
+
+    const data = [
+      {% for genre in genres %}
+        {{ posts_with_genre | where: "genre", genre | size }}{% unless forloop.last %}, {% endunless %}
+      {% endfor %}
+    ];
+
+    new Chart(ctx, {
+      type: 'bar', // 'pie', 'doughnut'도 가능
       data: {
-        labels: {{ genres | jsonify }},
+        labels: labels,
         datasets: [{
-          label: '장르별 독서 통계',
-          data: genreCounts, // 동적으로 생성된 데이터
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF5733', '#4CAF50'],
-          borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF5733', '#4CAF50'],
+          label: '독서 장르별 통계',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)'
+          ],
           borderWidth: 1
         }]
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          tooltip: {
-            enabled: true
+        scales: {
+          y: {
+            beginAtZero: true
           }
         }
       }
     });
-  }
+  });
 </script>
