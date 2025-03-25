@@ -680,15 +680,24 @@ $btn-border-width: 3px;
 $btn-mb: 0.5rem;
 
 #sidebar {
+  /* 사이드바 전체 스타일 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: flex-start; /* 상단부터 요소 배치 */
+  width: 250px; /* 사이드바의 고정 너비 */
+  height: 100vh; /* 화면 높이에 맞게 사이드바 확장 */
+  background-color: var(--sidebar-bg-color);
+  padding: 1.5rem 0; /* 상하 여백 */
+
   .profile-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center; /* 가로 중앙 정렬 */
     justify-content: center; /* 세로 중앙 정렬 */
-    text-align: center; /* 텍스트 가운데 정렬 */
+    text-align: center;
     width: 100%;
-    padding: 1.5rem 0; /* 상하 여백 */
-    margin: 0 auto; /* 좌우 여백 제거 */
+    margin-bottom: 2rem; /* 프로필과 메뉴 간격 */
   }
 
   #avatar {
@@ -696,82 +705,81 @@ $btn-mb: 0.5rem;
     width: 7rem;
     height: 7rem;
     overflow: hidden;
-    box-shadow: 0 0 0 2px var(--avatar-border-color);
-    transform: translateZ(0);
-    margin: 1rem auto; /* 아바타를 완전히 가운데 정렬 */
+    border-radius: 50%; /* 원형 아바타 */
+    box-shadow: var(--avatar-border-color) 0px 0px 0px 2px;
+    margin-bottom: 1rem; /* 아바타와 제목 간격 */
   }
 
   .site-title {
-    font-weight: 900;
+    font-weight: bold;
     font-size: 1.75rem;
-    letter-spacing: 0.25px;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
     color: var(--site-title-color);
-    text-align: center; /* 제목 중앙 정렬 */
+    margin-bottom: 0.5rem; /* 제목과 설명 간격 */
+    text-align: center;
   }
 
   .site-subtitle {
-    font-size: 95%;
+    font-size: 1rem;
     color: var(--site-subtitle-color);
-    margin-top: 0.25rem;
-    word-spacing: 1px;
-    user-select: none;
-    text-align: center; /* 설명 중앙 정렬 */
+    text-align: center;
+    margin-bottom: 2rem; /* 설명과 메뉴 간격 */
   }
-}
 
-/* 메뉴 스타일 유지 */
-ul {
-  margin-bottom: 2rem;
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    width: 100%; /* 메뉴 너비를 사이드바에 맞춤 */
 
-  li.nav-item {
-    opacity: 0.9;
-    width: 100%;
+    li.nav-item {
+      width: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+
+      a.nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.6rem;
+        border-radius: var(--menu-border-radius);
+        font-weight: bold;
+        color: var(--menu-text-color);
+        text-decoration: none;
+
+        &:hover {
+          background-color: var(--menu-hover-bg-color);
+          color: var(--menu-hover-text-color);
+        }
+
+        i {
+          margin-right: 1rem; /* 아이콘과 텍스트 간격 */
+        }
+      }
+      
+      &.active a.nav-link {
+        background-color: var(--menu-active-bg-color);
+        color: var(--menu-active-text-color);
+      }
+      
+      &:not(:last-child) {
+        margin-bottom: 0.5rem; /* 메뉴 간격 설정 */
+      }
+    }
+  }
+
+  .sidebar-bottom {
+    margin-top: auto; /* 하단 고정 버튼 위치 설정 */
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 
-    a.nav-link {
-      padding: 0.6rem 1.5rem;
-      display: flex;
-      align-items: center;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      color: var(--sidebar-link-color); /* 메뉴 글자 원래 색상 유지 */
+    a {
       text-decoration: none;
+      font-size: var(--bottom-button-font-size);
+      color: var(--bottom-button-text-color);
 
       &:hover {
-        background-color: var(--sidebar-hover-bg);
-        color: var(--sidebar-active-color);
+        color: var(--bottom-button-hover-text-color);
       }
-
-      i {
-        font-size: 95%;
-        opacity: 0.8;
-        margin-right: 1.5rem;
-      }
-
-      span {
-        font-size: 90%;
-        letter-spacing: 0.2px;
-      }
-    }
-
-    &.active .nav-link {
-      color: var(--sidebar-active-color);
-      background-color: var(--sidebar-hover-bg);
-    }
-
-    &:not(:first-child) {
-      margin-top: 0.25rem;
     }
   }
-}
-
-/* 사이드바 하단 버튼 스타일 유지 */
-.sidebar-bottom {
-  padding-left: 2rem;
-  padding-right: 1rem;
 }
 
 @media (hover: hover) {
