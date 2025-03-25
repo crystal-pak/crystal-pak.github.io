@@ -38,8 +38,8 @@ order: 4
     }
 
     // ModeToggle 중복 선언 방지
-    if (typeof window.ModeToggle === "undefined") {
-      window.ModeToggle = function() {
+    if (typeof window.CustomModeToggle === "undefined") {
+      window.CustomModeToggle = function() {
         console.log("모드 토글 실행");
       };
     }
