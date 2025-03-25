@@ -680,24 +680,32 @@ $btn-border-width: 3px;
 $btn-mb: 0.5rem;
 
 #sidebar {
-  /* 사이드바 전체 스타일 */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 가로 중앙 정렬 */
-  justify-content: flex-start; /* 상단부터 요소 배치 */
-  width: 250px; /* 사이드바의 고정 너비 */
-  height: 100vh; /* 화면 높이에 맞게 사이드바 확장 */
-  background-color: var(--sidebar-bg-color);
-  padding: 1.5rem 0; /* 상하 여백 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: auto;
+  width: $sidebar-width;
+  z-index: 99;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border-color);
+  padding: 0;
 
+  /* Hide scrollbar */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+  /* ✅ 프로필(아바타), 타이틀, 설명만 가운데 정렬 */
   .profile-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 가로 중앙 정렬 */
-    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 중앙 정렬 */
     text-align: center;
     width: 100%;
-    margin-bottom: 2rem; /* 프로필과 메뉴 간격 */
+    padding: 1.5rem 0;
   }
 
   #avatar {
@@ -705,80 +713,82 @@ $btn-mb: 0.5rem;
     width: 7rem;
     height: 7rem;
     overflow: hidden;
-    border-radius: 50%; /* 원형 아바타 */
-    box-shadow: var(--avatar-border-color) 0px 0px 0px 2px;
-    margin-bottom: 1rem; /* 아바타와 제목 간격 */
+    box-shadow: var(--avatar-border-color) 0 0 0 2px;
+    transform: translateZ(0);
+    margin: 1rem auto; /* 가운데 정렬 */
   }
 
   .site-title {
-    font-weight: bold;
+    font-weight: 900;
     font-size: 1.75rem;
+    letter-spacing: 0.25px;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--site-title-color);
-    margin-bottom: 0.5rem; /* 제목과 설명 간격 */
-    text-align: center;
+    text-align: center; /* 제목 중앙 정렬 */
   }
 
   .site-subtitle {
-    font-size: 1rem;
+    font-size: 95%;
     color: var(--site-subtitle-color);
-    text-align: center;
-    margin-bottom: 2rem; /* 설명과 메뉴 간격 */
+    margin-top: 0.25rem;
+    word-spacing: 1px;
+    user-select: none;
+    text-align: center; /* 설명 중앙 정렬 */
   }
 
+  /* ✅ 메뉴 부분 원래 상태 유지 */
   ul {
-    list-style-type: none;
-    padding-left: 0;
-    width: 100%; /* 메뉴 너비를 사이드바에 맞춤 */
+    margin-bottom: 2rem;
 
     li.nav-item {
-      width: auto;
+      opacity: 0.9;
+      width: 100%;
       padding-left: 1.5rem;
       padding-right: 1.5rem;
 
       a.nav-link {
+        padding: 0.6rem 1.5rem;
         display: flex;
         align-items: center;
-        padding: 0.6rem;
-        border-radius: var(--menu-border-radius);
-        font-weight: bold;
-        color: var(--menu-text-color);
+        border-radius: 0.75rem;
+        font-weight: 600;
+        color: var(--sidebar-link-color); /* 메뉴 글자 원래 색상 유지 */
         text-decoration: none;
 
         &:hover {
-          background-color: var(--menu-hover-bg-color);
-          color: var(--menu-hover-text-color);
+          background-color: var(--sidebar-hover-bg);
+          color: var(--sidebar-active-color);
         }
 
         i {
-          margin-right: 1rem; /* 아이콘과 텍스트 간격 */
+          font-size: 95%;
+          opacity: 0.8;
+          margin-right: 1.5rem;
+        }
+
+        span {
+          font-size: 90%;
+          letter-spacing: 0.2px;
         }
       }
-      
-      &.active a.nav-link {
-        background-color: var(--menu-active-bg-color);
-        color: var(--menu-active-text-color);
+
+      &.active .nav-link {
+        color: var(--sidebar-active-color);
+        background-color: var(--sidebar-hover-bg);
       }
-      
-      &:not(:last-child) {
-        margin-bottom: 0.5rem; /* 메뉴 간격 설정 */
+
+      &:not(:first-child) {
+        margin-top: 0.25rem;
       }
     }
   }
 
+  /* ✅ 사이드바 하단 버튼 기존 상태 유지 */
   .sidebar-bottom {
-    margin-top: auto; /* 하단 고정 버튼 위치 설정 */
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-
-    a {
-      text-decoration: none;
-      font-size: var(--bottom-button-font-size);
-      color: var(--bottom-button-text-color);
-
-      &:hover {
-        color: var(--bottom-button-hover-text-color);
-      }
-    }
+    padding-left: 2rem;
+    padding-right: 1rem;
+    margin-bottom: 1.5rem;
   }
 }
 
