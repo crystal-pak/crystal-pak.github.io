@@ -9,62 +9,51 @@ order: 4
 {% assign genres = site.posts | map: "genre" | uniq %}
 
 <ul>
+  {% assign genre_data = "" %}
   {% for genre in genres %}
     {% unless genre == "" %}
       {% assign genre_count = site.posts | where: "genre", genre | size %}
       <li>{{ genre }}: {{ genre_count }}권</li>
+      {% assign genre_data = genre_data | append: genre_count | append: "," %}
     {% endunless %}
   {% endfor %}
 </ul>
 
-<canvas id="genreChart" style="max-width: 100%; height: 300px;"></canvas>
+<!-- Chart.js 차트 삽입 -->
+{% include charts.html %}
 
-<!-- Chart.js가 없을 때만 로드 -->
-{% if page.chartjs != false %}
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
-{% endif %}
+<div>
+  <canvas id="genreChart" width="400" height="400"></canvas>
+</div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('genreChart').getContext('2d');
-    
-    // 장르별 데이터
-    const genres = [{% for genre in site.posts | map: "genre" | uniq %}"{{ genre }}",{% endfor %}];
-    const counts = [{% for genre in site.posts | map: "genre" | uniq %}{{ site.posts | where: "genre", genre | size }},{% endfor %}];
+  var ctx = document.getElementById('genreChart').getContext('2d');
+  
+  // 마크다운에서 전달된 장르별 독서 수 데이터
+  var genreCounts = "{{ genre_data | strip_newlines }}".split(",");
 
-    if (genres.length === 0) {
-      console.error("장르 데이터가 없습니다.");
-      return;
-    }
-
-    // ModeToggle 중복 선언 방지
-    if (typeof window.CustomModeToggle === "undefined") {
-      window.CustomModeToggle = function() {
-        console.log("모드 토글 실행");
-      };
-    }
-
-    // 차트 생성
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: genres,
-        datasets: [{
-          label: '장르별 독서량',
-          data: counts,
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, // 크기 자동 유지 설정 비활성화
-        aspectRatio: 2, // 차트 비율을 2:1로 설정
-        scales: {
-          y: { beginAtZero: true }
+  var genreChart = new Chart(ctx, {
+    type: 'pie', // 파이차트
+    data: {
+      labels: {{ genres | jsonify }},
+      datasets: [{
+        label: '장르별 독서 통계',
+        data: genreCounts, // 동적으로 생성된 데이터
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF5733', '#4CAF50'],
+        borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF5733', '#4CAF50'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          enabled: true
         }
       }
-    });
+    }
   });
 </script>
