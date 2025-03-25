@@ -683,9 +683,9 @@ $btn-mb: 0.5rem;
   .profile-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
-    text-align: center;
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
     width: 100%;
     padding: 1.5rem 0; /* 상하 여백 */
     margin: 0 auto; /* 좌우 여백 제거 */
@@ -720,7 +720,6 @@ $btn-mb: 0.5rem;
     text-align: center; /* 설명 중앙 정렬 */
   }
 }
-
 
   /* ✅ 메뉴 부분 원래 상태 유지 */
   ul {
