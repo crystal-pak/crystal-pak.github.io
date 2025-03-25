@@ -11,14 +11,20 @@ order: 4
 
 <ul>
   {% for genre in genres %}
-    {% assign genre_count = site.posts | where: "genre", genre | size %}
-    <li>{{ genre }}: {{ genre_count }}권</li>
+    {% unless genre == "" %}
+      {% assign genre_count = site.posts | where: "genre", genre | size %}
+      <li>{{ genre }}: {{ genre_count }}권</li>
+    {% endunless %}
   {% endfor %}
 </ul>
 
 <canvas id="genreChart"></canvas>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Chart.js가 없을 때만 로드 -->
+{% if page.chartjs != false %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+{% endif %}
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const ctx = document.getElementById('genreChart').getContext('2d');
