@@ -29,14 +29,18 @@ order: 4
 
     // Liquid로 생성한 데이터를 JavaScript 변수에 전달
     const labels = JSON.parse('{{ genres | jsonify }}');
-    const data = JSON.parse('[{% for genre in genres %}{{ posts_with_genre | where: "genre", genre | size }}{% if forloop.last == false %}, {% endif %}{% endfor %}]');
+    const data = [
+      {% for genre in genres %}
+        {{ posts_with_genre | where: "genre", genre | size }}{% if forloop.last == false %}, {% endif %}
+      {% endfor %}
+    ];
 
     // 디버깅: 데이터 확인
     console.log("📊 장르 목록 (labels):", labels);
     console.log("📈 장르별 수량 (data):", data);
 
-    // 데이터가 비었는지 확인
-    if (labels.length === 0 || data.length === 0) {
+    // 데이터 유효성 검사
+    if (!labels || !data || labels.length === 0 || data.length === 0) {
       console.error("❌ 차트를 생성할 데이터가 없습니다.");
       return;
     }
