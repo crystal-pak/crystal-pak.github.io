@@ -18,7 +18,7 @@ order: 4
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<canvas id="genreChart" width="400" height="400"></canvas>
+<canvas id="genreChart"></canvas>
 
 <script>
   const genres = [
@@ -72,8 +72,10 @@ order: 4
 </script>
 
 <style>
+  @media (min-width: 1024px) {
     #genreChart {
-    width: 80vw !important;
-    height: 80vh !important;
+      width: 500px !important;
+      height: 500px !important;
+    }
   }
 </style>
