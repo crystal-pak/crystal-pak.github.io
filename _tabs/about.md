@@ -28,24 +28,26 @@ order: 4
   document.addEventListener("DOMContentLoaded", function() {
     const ctx = document.getElementById('genreChart').getContext('2d');
 
-    // 장르와 수량 데이터 생성 (디버그 출력)
+    // 장르와 수량 데이터 생성 (쉼표 문제 해결)
     const labels = [
       {% for genre in genres %}
-        "{{ genre }}"{% unless forloop.last %}, {% endunless %}
+        "{{ genre }}" {% if forloop.last == false %}, {% endif %}
       {% endfor %}
     ];
 
     const data = [
       {% for genre in genres %}
-        {{ posts_with_genre | where: "genre", genre | size }}{% unless forloop.last %}, {% endunless %}
+        {{ posts_with_genre | where: "genre", genre | size }} {% if forloop.last == false %}, {% endif %}
       {% endfor %}
     ];
 
+    // 디버깅: 콘솔에 데이터 출력
     console.log("📊 장르 목록:", labels);
     console.log("📈 장르별 수량:", data);
 
-    // 데이터가 있는 경우에만 차트 생성
-    if (labels.length && data.length) {      new Chart(ctx, {
+    // 데이터 확인 후 차트 생성
+    if (labels.length > 0 && data.length > 0) {
+      new Chart(ctx, {
         type: 'bar',
         data: {
           labels: labels,
