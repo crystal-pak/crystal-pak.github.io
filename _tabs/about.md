@@ -16,62 +16,57 @@ order: 4
   {% endfor %}
 </ul>
 
-## 📊 시각화된 통계 1
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <canvas id="genreChart" width="400" height="400"></canvas>
 
-<!-- Chart.js 로드 -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('genreChart').getContext('2d');
+  const genres = [
+    {% for genre in genres %}
+      "{{ genre }}",
+    {% endfor %}
+  ];
 
-    // Liquid 템플릿에서 데이터를 JavaScript 배열로 직접 생성
-    const labels = {{ genres | jsonify }};
-    const data = [
-      {% for genre in genres %}
-        {{ posts_with_genre | where: "genre", genre | size }}{% if forloop.last == false %}, {% endif %}
-      {% endfor %}
-    ];
+  const genreCounts = [
+    {% for genre in genres %}
+      {{ posts_with_genre | where: "genre", genre | size }},
+    {% endfor %}
+  ];
 
-    // 디버깅 로그 추가
-    console.log("📊 장르 목록 (labels):", labels);
-    console.log("📈 장르별 수량 (data):", data);
-
-    // 데이터 유효성 검사
-    if (!labels || !data || labels.length === 0 || data.length === 0) {
-      console.error("❌ 차트를 생성할 데이터가 없습니다.");
-      return;
-    }
-
-    // Chart.js로 차트 생성
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: '독서 장르별 통계',
-          data: data,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+  // 차트를 생성합니다.
+  const ctx = document.getElementById('genreChart').getContext('2d');
+  const genreChart = new Chart(ctx, {
+    type: 'bar', // 차트 타입 (bar, pie, line 등)
+    data: {
+      labels: genres,
+      datasets: [{
+        label: '장르별 권수',
+        data: genreCounts,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
         }
       }
-    });
+    }
   });
 </script>
