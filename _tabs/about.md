@@ -20,12 +20,14 @@ order: 4
 
 <canvas id="genreChart" width="400" height="400"></canvas>
 
+<!-- Chart.js 로드 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const ctx = document.getElementById('genreChart').getContext('2d');
 
-    // 장르와 수량 데이터
+    // 장르와 수량 데이터 생성
     const labels = [
       {% for genre in genres %}
         "{{ genre }}"{% unless forloop.last %}, {% endunless %}
@@ -38,8 +40,9 @@ order: 4
       {% endfor %}
     ];
 
+    // Chart.js로 막대 그래프 생성
     new Chart(ctx, {
-      type: 'bar', // 'pie', 'doughnut'도 가능
+      type: 'bar', // 'pie', 'doughnut', 'line' 등 변경 가능
       data: {
         labels: labels,
         datasets: [{
