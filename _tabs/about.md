@@ -27,21 +27,21 @@ order: 4
   document.addEventListener("DOMContentLoaded", function() {
     const ctx = document.getElementById('genreChart').getContext('2d');
 
-    // 1. JSON 변환 후 데이터 확인
+    // Liquid로 생성한 데이터를 JavaScript 변수에 전달
     const labels = JSON.parse('{{ genres | jsonify }}');
     const data = JSON.parse('[{% for genre in genres %}{{ posts_with_genre | where: "genre", genre | size }}{% if forloop.last == false %}, {% endif %}{% endfor %}]');
 
-    // 2. 디버그: 데이터가 정확하게 들어왔는지 확인
+    // 디버깅: 데이터 확인
     console.log("📊 장르 목록 (labels):", labels);
     console.log("📈 장르별 수량 (data):", data);
 
-    // 3. 문제가 있는 경우 경고 메시지
+    // 데이터가 비었는지 확인
     if (labels.length === 0 || data.length === 0) {
       console.error("❌ 차트를 생성할 데이터가 없습니다.");
       return;
     }
 
-    // 4. Chart.js로 차트 생성
+    // Chart.js로 차트 생성
     new Chart(ctx, {
       type: 'bar',
       data: {
