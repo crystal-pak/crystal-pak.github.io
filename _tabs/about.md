@@ -70,12 +70,3 @@ order: 4
     }
   });
 </script>
-
-<style>
-  @media (min-width: 1024px) {
-    #genreChart {
-      width: 500px !important;
-      height: 500px !important;
-    }
-  }
-</style>
