@@ -16,7 +16,7 @@ order: 4
   {% endfor %}
 </ul>
 
-## 📊 시각화된 통계
+## 📊 시각화된 통계 1
 
 <canvas id="genreChart" width="400" height="400"></canvas>
 
@@ -27,15 +27,15 @@ order: 4
   document.addEventListener("DOMContentLoaded", function() {
     const ctx = document.getElementById('genreChart').getContext('2d');
 
-    // Liquid로 생성한 데이터를 JavaScript 변수에 전달
-    const labels = JSON.parse('{{ genres | jsonify }}');
+    // Liquid 템플릿에서 데이터를 JavaScript 배열로 직접 생성
+    const labels = {{ genres | jsonify }};
     const data = [
       {% for genre in genres %}
         {{ posts_with_genre | where: "genre", genre | size }}{% if forloop.last == false %}, {% endif %}
       {% endfor %}
     ];
 
-    // 디버깅: 데이터 확인
+    // 디버깅 로그 추가
     console.log("📊 장르 목록 (labels):", labels);
     console.log("📈 장르별 수량 (data):", data);
 
