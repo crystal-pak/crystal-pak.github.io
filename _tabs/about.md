@@ -16,7 +16,7 @@ order: 4
   {% endfor %}
 </ul>
 
-## 📊 시각화된 통계 1
+## 📊 시각화된 통계
 
 <canvas id="genreChart" width="400" height="400"></canvas>
 
@@ -27,45 +27,47 @@ order: 4
   document.addEventListener("DOMContentLoaded", function() {
     const ctx = document.getElementById('genreChart').getContext('2d');
 
-    // JSON으로 안전하게 변환
+    // 1. JSON 변환 후 데이터 확인
     const labels = JSON.parse('{{ genres | jsonify }}');
     const data = JSON.parse('[{% for genre in genres %}{{ posts_with_genre | where: "genre", genre | size }}{% if forloop.last == false %}, {% endif %}{% endfor %}]');
 
-    // 디버그: 데이터 확인
-    console.log("📊 장르 목록:", labels);
-    console.log("📈 장르별 수량:", data);
+    // 2. 디버그: 데이터가 정확하게 들어왔는지 확인
+    console.log("📊 장르 목록 (labels):", labels);
+    console.log("📈 장르별 수량 (data):", data);
 
-    // 차트 생성
-    if (labels.length > 0 && data.length > 0) {
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: '독서 장르별 통계',
-            data: data,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-              'rgba(153, 102, 255, 0.6)',
-              'rgba(255, 159, 64, 0.6)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true
-            }
+    // 3. 문제가 있는 경우 경고 메시지
+    if (labels.length === 0 || data.length === 0) {
+      console.error("❌ 차트를 생성할 데이터가 없습니다.");
+      return;
+    }
+
+    // 4. Chart.js로 차트 생성
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '독서 장르별 통계',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
           }
         }
-      });
-    } else {
-      console.warn("⚠️ 차트를 생성할 데이터가 없습니다.");
-    }
+      }
+    });
   });
 </script>
