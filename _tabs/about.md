@@ -36,7 +36,7 @@ order: 4
   /* 차트를 생성합니다. */
   const ctx = document.getElementById('genreChart').getContext('2d');
   const genreChart = new Chart(ctx, {
-    type: 'pie', /* 차트 타입 (bar, pie, line 등) */
+    type: 'bar', /* 차트 타입 (bar, pie, line 등) */
     data: {
       labels: genres,
       datasets: [{
@@ -62,9 +62,18 @@ order: 4
       }]
     },
     options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true
+        }
+      },
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
         }
       }
     }
